@@ -11,55 +11,54 @@ class LocationDetailVC: UIViewController {
     @IBOutlet weak var placeLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     var weatherLocation: WeatherLocation!
-    var weatherLocations: [WeatherLocation] = []
+    var locationIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if weatherLocation == nil {
-            weatherLocation = WeatherLocation(name: "Current Location", latitude: 0.0, longitude: 0.0)
-            weatherLocations.append(weatherLocation)
-        }
-        
-        loadLocations()
         updateUserInterface()
-        // TODO: fix this.
-        navigationController?.isNavigationBarHidden = true
-    }
-    
-    private func loadLocations() {
-        guard let locationsEncoded = UserDefaults.standard.value(forKey: "weatherLocations") as? Data else {
-//            getLocation()
-            return
-        }
-        
-        let decoder = JSONDecoder()
-        if let weatherLocations = try? decoder.decode(Array.self, from: locationsEncoded) as [WeatherLocation] {
-            self.weatherLocations = weatherLocations
-//            self.getDataDetail()
-        } else {
-//            getLocation()
-            print("Error: Couldn't decode data read from UserDefaults.")
-        }
     }
     
     private func updateUserInterface() {
+        let pageVC = UIApplication.shared.windows.first!.rootViewController as! PageVC
+        weatherLocation = pageVC.weatherLocations[locationIndex]
+        
         placeLabel.text = weatherLocation.name
         tempLabel.text = "--°"
         descLabel.text = ""
+        
+        pageControl.numberOfPages = pageVC.weatherLocations.count
+        pageControl.currentPage = locationIndex
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! LocationListVC
-        destination.weatherLocations = weatherLocations
+        let pageVC = UIApplication.shared.windows.first!.rootViewController as! PageVC
+
+        destination.weatherLocations = pageVC.weatherLocations
     }
     
     @IBAction func unwindFromLocalitionListVC(segue: UIStoryboardSegue) {
         let source =  segue.source as! LocationListVC
-        weatherLocations = source.weatherLocations
-        weatherLocation = weatherLocations[source.selectedLocationIndex]
-        updateUserInterface()
+        locationIndex = source.selectedLocationIndex
+        
+        let pageVC = UIApplication.shared.windows.first!.rootViewController as! PageVC
+        pageVC.weatherLocations = source.weatherLocations
+        pageVC.setViewControllers([pageVC.createLocationDetailVC(forPage: locationIndex)], direction: .forward, animated: false, completion: nil)
+    }
+    
+    @IBAction func pageControlTapped(_ sender: UIPageControl) {
+        let pageVC = UIApplication.shared.windows.first!.rootViewController as! PageVC
+        
+        var direction: UIPageViewController.NavigationDirection = .forward
+        
+        if sender.currentPage < locationIndex {
+            direction = .reverse
+        }
+        
+        pageVC.setViewControllers([pageVC.createLocationDetailVC(forPage: sender.currentPage)], direction: direction, animated: true, completion: nil)
     }
 }

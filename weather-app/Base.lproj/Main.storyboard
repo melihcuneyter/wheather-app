@@ -37,7 +37,7 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ctm-eN-CjS">
-                                <rect key="frame" x="0.0" y="44" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="32" width="320" height="492"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="pXL-Zh-vpm">
@@ -62,7 +62,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ctm-eN-CjS" secondAttribute="trailing" id="28l-KI-onR"/>
-                            <constraint firstItem="ctm-eN-CjS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="8gp-mx-YL6"/>
+                            <constraint firstItem="ctm-eN-CjS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="32" id="8gp-mx-YL6"/>
                             <constraint firstItem="ctm-eN-CjS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LFW-nd-BOU"/>
                             <constraint firstItem="qNg-C0-tl5" firstAttribute="top" secondItem="ctm-eN-CjS" secondAttribute="bottom" id="Tyj-hr-dYR"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qNg-C0-tl5" secondAttribute="bottom" id="duG-PL-a0S"/>
@@ -85,7 +85,7 @@
         <!--Location DetailVC-->
         <scene sceneID="0fV-Oe-V28">
             <objects>
-                <viewController id="32v-Aw-DO3" customClass="LocationDetailVC" customModule="weather_app" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationDetailVC" id="32v-Aw-DO3" customClass="LocationDetailVC" customModule="weather_app" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mUB-aI-gA9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,16 +97,27 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem title="About" id="V7a-9e-Uuy"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ynp-Wn-m8j"/>
+                                    <barButtonItem style="plain" id="1rs-mH-oR7">
+                                        <pageControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="z2R-nt-BGP">
+                                            <rect key="frame" x="101.5" y="9" width="117" height="26"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="pageIndicatorTintColor" systemColor="tintColor"/>
+                                            <connections>
+                                                <action selector="pageControlTapped:" destination="32v-Aw-DO3" eventType="valueChanged" id="r1G-KQ-Kao"/>
+                                            </connections>
+                                        </pageControl>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Skz-SF-GGb"/>
                                     <barButtonItem image="list.bullet" catalog="system" id="9k4-QR-SKD">
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="4w4-Y2-qzD"/>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" id="4w4-Y2-qzD"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sot-zt-rlR">
-                                <rect key="frame" x="0.0" y="44" width="320" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 15°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jsL-iC-t48">
                                         <rect key="frame" x="0.0" y="62" width="320" height="60"/>
@@ -156,6 +167,7 @@
                     <navigationItem key="navigationItem" id="PRA-zc-NqU"/>
                     <connections>
                         <outlet property="descLabel" destination="47P-Sl-ypB" id="p0b-lU-pGf"/>
+                        <outlet property="pageControl" destination="z2R-nt-BGP" id="aTi-fc-LKf"/>
                         <outlet property="placeLabel" destination="PYD-Cc-Wmx" id="EZb-EY-OBn"/>
                         <outlet property="tempLabel" destination="jsL-iC-t48" id="IDt-Kj-Ljs"/>
                     </connections>
@@ -164,31 +176,13 @@
             </objects>
             <point key="canvasLocation" x="1485" y="623.23943661971828"/>
         </scene>
-        <!--Page View Controller-->
+        <!--PageVC-->
         <scene sceneID="Bi6-Rw-zrR">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="qNU-l9-iJB" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="qNU-l9-iJB" customClass="PageVC" customModule="weather_app" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wSu-Es-cdp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1485" y="-104"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="YRH-Go-nBU">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="MJ6-0j-0uo" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hAV-Ke-mxf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="32v-Aw-DO3" kind="relationship" relationship="rootViewController" id="W2X-FE-Fe2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rg3-gE-Yqj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="696" y="622"/>
         </scene>
     </scenes>
     <resources>
@@ -198,6 +192,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

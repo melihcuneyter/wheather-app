@@ -24,8 +24,6 @@ class LocationListVC: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        // TODO: fix this.
-        navigationController?.isNavigationBarHidden = false
     }
     
     private func setupUI() {
@@ -89,7 +87,7 @@ class LocationListVC: UIViewController {
     }
     
     @IBAction func addBarButtonPressed(_ sender: UIBarButtonItem) {
-        
+        present(searchController, animated: true, completion: nil)
     }
 }
 

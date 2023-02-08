@@ -18,6 +18,7 @@
 		E597502E2993F1B1003F100D /* LocationTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597502C2993F1B1003F100D /* LocationTVC.swift */; };
 		E597502F2993F1B1003F100D /* LocationTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E597502D2993F1B1003F100D /* LocationTVC.xib */; };
 		E59750312993F706003F100D /* LocationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59750302993F706003F100D /* LocationDetailVC.swift */; };
+		E597503329941534003F100D /* PageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597503229941534003F100D /* PageVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		E597502C2993F1B1003F100D /* LocationTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTVC.swift; sourceTree = "<group>"; };
 		E597502D2993F1B1003F100D /* LocationTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationTVC.xib; sourceTree = "<group>"; };
 		E59750302993F706003F100D /* LocationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailVC.swift; sourceTree = "<group>"; };
+		E597503229941534003F100D /* PageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				E59750262993D88E003F100D /* WeatherLocation.swift */,
 				E597502C2993F1B1003F100D /* LocationTVC.swift */,
 				E597502D2993F1B1003F100D /* LocationTVC.xib */,
+				E597503229941534003F100D /* PageVC.swift */,
 				E5974FE929910C7D003F100D /* Main.storyboard */,
 				E5974FEC29910C7F003F100D /* Assets.xcassets */,
 				E5974FEE29910C7F003F100D /* LaunchScreen.storyboard */,
@@ -222,6 +225,7 @@
 				E5974FE829910C7D003F100D /* LocationListVC.swift in Sources */,
 				E5974FE429910C7D003F100D /* AppDelegate.swift in Sources */,
 				E59750312993F706003F100D /* LocationDetailVC.swift in Sources */,
+				E597503329941534003F100D /* PageVC.swift in Sources */,
 				E597502E2993F1B1003F100D /* LocationTVC.swift in Sources */,
 				E59750292993EC87003F100D /* APIKeys.swift in Sources */,
 				E59750272993D88E003F100D /* WeatherLocation.swift in Sources */,
