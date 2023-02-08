@@ -8,7 +8,7 @@
 import UIKit
 import GooglePlaces
 
-class LocationListVC: UIViewController {
+final class LocationListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editBarButton: UIToolbar!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
@@ -27,8 +27,6 @@ class LocationListVC: UIViewController {
     }
     
     private func setupUI() {
-        title = "Konum Listesi"
-        
         tableView.separatorStyle = .none
         tableView.register(.init(nibName: "LocationTVC", bundle: nil), forCellReuseIdentifier: "LocationTVC")
         
@@ -52,22 +50,6 @@ class LocationListVC: UIViewController {
              print("Error: Saving Encoded didn't work!")
          }
      }
-     
-//     private func loadLocations() {
-//         guard let locationsEncoded = UserDefaults.standard.value(forKey: "weatherLocations") as? Data else {
-//             getLocation()
-//             return
-//         }
-//
-//         let decoder = JSONDecoder()
-//         if let weatherLocations = try? decoder.decode(Array.self, from: locationsEncoded) as [WeatherDetail] {
-//             self.weatherLocations = weatherLocations
-//             self.getDataDetail()
-//         } else {
-//             getLocation()
-//             print("Error: Couldn't decode data read from UserDefaults.")
-//         }
-//     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         selectedLocationIndex = tableView.indexPathForSelectedRow!.row
@@ -87,13 +69,13 @@ class LocationListVC: UIViewController {
     }
     
     @IBAction func addBarButtonPressed(_ sender: UIBarButtonItem) {
+        // TODO: disabled button when pressed
         present(searchController, animated: true, completion: nil)
     }
 }
 
 // MARK: - Tableview Delegate
 extension LocationListVC: UITableViewDelegate {
-    
 }
 
 // MARK: - Tableview DataSource
@@ -105,6 +87,7 @@ extension LocationListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = weatherLocations[indexPath.row].name
+        // TODO: Show Location Detail
         return cell
     }
     
@@ -120,14 +103,24 @@ extension LocationListVC: UITableViewDataSource {
         weatherLocations.remove(at: sourceIndexPath.row)
         weatherLocations.insert(itemToMove, at: destinationIndexPath.row)
     }
+    
+    // MARK: - Freezing first element
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return (indexPath.row != 0 ? true : false)
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return (indexPath.row != 0 ? true : false)
+    }
+    
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        return (proposedDestinationIndexPath.row == 0 ? sourceIndexPath : proposedDestinationIndexPath)
+    }
 }
 
 // MARK: - AutocompleteResultsViewController Delegate
 extension LocationListVC: GMSAutocompleteResultsViewControllerDelegate {
-    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
-//        let weatherDetail = WeatherDetail(name: place.name ?? "unkown place", latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-//        addLocation(weatherDetail: weatherDetail)
-        
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {        
         let newLocation = WeatherLocation(name: place.name ?? "unknown place", latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         weatherLocations.append(newLocation)
         tableView.reloadData()

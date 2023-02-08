@@ -19,6 +19,11 @@
 		E597502F2993F1B1003F100D /* LocationTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E597502D2993F1B1003F100D /* LocationTVC.xib */; };
 		E59750312993F706003F100D /* LocationDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59750302993F706003F100D /* LocationDetailVC.swift */; };
 		E597503329941534003F100D /* PageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597503229941534003F100D /* PageVC.swift */; };
+		E597503529942D44003F100D /* WeatherDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597503429942D44003F100D /* WeatherDetail.swift */; };
+		E59750382994330C003F100D /* DailyTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59750362994330C003F100D /* DailyTVC.swift */; };
+		E59750392994330C003F100D /* DailyTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E59750372994330C003F100D /* DailyTVC.xib */; };
+		E597503C29943328003F100D /* HourlyCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597503A29943328003F100D /* HourlyCVC.swift */; };
+		E597503D29943328003F100D /* HourlyCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E597503B29943328003F100D /* HourlyCVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +43,11 @@
 		E597502D2993F1B1003F100D /* LocationTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationTVC.xib; sourceTree = "<group>"; };
 		E59750302993F706003F100D /* LocationDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailVC.swift; sourceTree = "<group>"; };
 		E597503229941534003F100D /* PageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageVC.swift; sourceTree = "<group>"; };
+		E597503429942D44003F100D /* WeatherDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetail.swift; sourceTree = "<group>"; };
+		E59750362994330C003F100D /* DailyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTVC.swift; sourceTree = "<group>"; };
+		E59750372994330C003F100D /* DailyTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyTVC.xib; sourceTree = "<group>"; };
+		E597503A29943328003F100D /* HourlyCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCVC.swift; sourceTree = "<group>"; };
+		E597503B29943328003F100D /* HourlyCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyCVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,18 +102,47 @@
 			children = (
 				E5974FE329910C7D003F100D /* AppDelegate.swift */,
 				E59750282993EC87003F100D /* APIKeys.swift */,
-				E5974FE729910C7D003F100D /* LocationListVC.swift */,
-				E59750302993F706003F100D /* LocationDetailVC.swift */,
+				E5975040299433ED003F100D /* ViewControllers */,
+				E597503F299433DF003F100D /* CollectionViewCell */,
+				E597503E299433CF003F100D /* TableViewCell */,
 				E59750262993D88E003F100D /* WeatherLocation.swift */,
-				E597502C2993F1B1003F100D /* LocationTVC.swift */,
-				E597502D2993F1B1003F100D /* LocationTVC.xib */,
-				E597503229941534003F100D /* PageVC.swift */,
+				E597503429942D44003F100D /* WeatherDetail.swift */,
 				E5974FE929910C7D003F100D /* Main.storyboard */,
 				E5974FEC29910C7F003F100D /* Assets.xcassets */,
 				E5974FEE29910C7F003F100D /* LaunchScreen.storyboard */,
 				E5974FF129910C7F003F100D /* Info.plist */,
 			);
 			path = "weather-app";
+			sourceTree = "<group>";
+		};
+		E597503E299433CF003F100D /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E597502C2993F1B1003F100D /* LocationTVC.swift */,
+				E597502D2993F1B1003F100D /* LocationTVC.xib */,
+				E59750362994330C003F100D /* DailyTVC.swift */,
+				E59750372994330C003F100D /* DailyTVC.xib */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		E597503F299433DF003F100D /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E597503A29943328003F100D /* HourlyCVC.swift */,
+				E597503B29943328003F100D /* HourlyCVC.xib */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		E5975040299433ED003F100D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E5974FE729910C7D003F100D /* LocationListVC.swift */,
+				E59750302993F706003F100D /* LocationDetailVC.swift */,
+				E597503229941534003F100D /* PageVC.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,8 +205,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E59750392994330C003F100D /* DailyTVC.xib in Resources */,
 				E5974FF029910C7F003F100D /* LaunchScreen.storyboard in Resources */,
 				E5974FED29910C7F003F100D /* Assets.xcassets in Resources */,
+				E597503D29943328003F100D /* HourlyCVC.xib in Resources */,
 				E597502F2993F1B1003F100D /* LocationTVC.xib in Resources */,
 				E5974FEB29910C7D003F100D /* Main.storyboard in Resources */,
 			);
@@ -223,8 +264,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5974FE829910C7D003F100D /* LocationListVC.swift in Sources */,
+				E597503C29943328003F100D /* HourlyCVC.swift in Sources */,
+				E597503529942D44003F100D /* WeatherDetail.swift in Sources */,
 				E5974FE429910C7D003F100D /* AppDelegate.swift in Sources */,
 				E59750312993F706003F100D /* LocationDetailVC.swift in Sources */,
+				E59750382994330C003F100D /* DailyTVC.swift in Sources */,
 				E597503329941534003F100D /* PageVC.swift in Sources */,
 				E597502E2993F1B1003F100D /* LocationTVC.swift in Sources */,
 				E59750292993EC87003F100D /* APIKeys.swift in Sources */,
@@ -379,6 +423,7 @@
 				DEVELOPMENT_TEAM = 597MRPLSQU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "weather-app/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Weather UP!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -412,6 +457,7 @@
 				DEVELOPMENT_TEAM = 597MRPLSQU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "weather-app/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Weather UP!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -30,9 +30,7 @@ class PageVC: UIPageViewController {
         let decoder = JSONDecoder()
         if let weatherLocations = try? decoder.decode(Array.self, from: locationsEncoded) as [WeatherLocation] {
             self.weatherLocations = weatherLocations
-//            self.getDataDetail()
         } else {
-//            getLocation()
             print("Error: Couldn't decode data read from UserDefaults.")
         }
         
@@ -48,13 +46,8 @@ class PageVC: UIPageViewController {
     }
 }
 
-//MARK: - PageVC Delegate
-extension PageVC: UIPageViewControllerDelegate {
-    
-}
-
-//MARK: - PageVC DataSource
-extension PageVC: UIPageViewControllerDataSource {
+//MARK: - PageVC DataSource & Delegate
+extension PageVC: UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if let currentViewController = viewController as? LocationDetailVC {
             if currentViewController.locationIndex > 0 {
