@@ -13,17 +13,67 @@ class LocationListVC: UIViewController {
     @IBOutlet weak var editBarButton: UIToolbar!
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
+    var searchController = UISearchController()
+    var resultsViewController: GMSAutocompleteResultsViewController?
+    var resultView: UITextView?
+    
     var weatherLocations: [WeatherLocation] = []
+    var selectedLocationIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        var weatherLocation = WeatherLocation(name: "Istanbul", latitude: 0, longitude: 0)
-        weatherLocations.append(weatherLocation)
-        weatherLocation = WeatherLocation(name: "Izmir", latitude: 0, longitude: 0)
-        weatherLocations.append(weatherLocation)
-        weatherLocation = WeatherLocation(name: "Manisa", latitude: 0, longitude: 0)
-        weatherLocations.append(weatherLocation)
+        
+        setupUI()
+        // TODO: fix this.
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    private func setupUI() {
+        title = "Konum Listesi"
+        
+        tableView.separatorStyle = .none
+        tableView.register(.init(nibName: "LocationTVC", bundle: nil), forCellReuseIdentifier: "LocationTVC")
+        
+        // MARK: GMSAutoComplete SearchController add NavigationItem and ResultViewController
+        resultsViewController = GMSAutocompleteResultsViewController()
+        resultsViewController?.delegate = self
+        
+        searchController = UISearchController(searchResultsController: resultsViewController)
+        searchController.searchResultsUpdater = resultsViewController
+        
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.placeholder = "Şehir veya konum arayın."
+        navigationItem.searchController = searchController
+    }
+    
+    private func saveLocations() {
+         let encoder = JSONEncoder()
+         if let encoded = try? encoder.encode(weatherLocations) {
+             UserDefaults.standard.set(encoded, forKey: "weatherLocations")
+         } else {
+             print("Error: Saving Encoded didn't work!")
+         }
+     }
+     
+//     private func loadLocations() {
+//         guard let locationsEncoded = UserDefaults.standard.value(forKey: "weatherLocations") as? Data else {
+//             getLocation()
+//             return
+//         }
+//
+//         let decoder = JSONDecoder()
+//         if let weatherLocations = try? decoder.decode(Array.self, from: locationsEncoded) as [WeatherDetail] {
+//             self.weatherLocations = weatherLocations
+//             self.getDataDetail()
+//         } else {
+//             getLocation()
+//             print("Error: Couldn't decode data read from UserDefaults.")
+//         }
+//     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        selectedLocationIndex = tableView.indexPathForSelectedRow!.row
+        saveLocations()
     }
     
     @IBAction func editBarButtonPressed(_ sender: UIBarButtonItem) {
@@ -71,6 +121,25 @@ extension LocationListVC: UITableViewDataSource {
         let itemToMove = weatherLocations[sourceIndexPath.row]
         weatherLocations.remove(at: sourceIndexPath.row)
         weatherLocations.insert(itemToMove, at: destinationIndexPath.row)
+    }
+}
+
+// MARK: - AutocompleteResultsViewController Delegate
+extension LocationListVC: GMSAutocompleteResultsViewControllerDelegate {
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
+//        let weatherDetail = WeatherDetail(name: place.name ?? "unkown place", latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+//        addLocation(weatherDetail: weatherDetail)
+        
+        let newLocation = WeatherLocation(name: place.name ?? "unknown place", latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        weatherLocations.append(newLocation)
+        tableView.reloadData()
+        
+        searchController.searchBar.text = ""
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
+        print("Error: ", error.localizedDescription)
     }
 }
 
