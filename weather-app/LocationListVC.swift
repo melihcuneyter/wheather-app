@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GooglePlaces
 
 class LocationListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
